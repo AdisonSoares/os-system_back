@@ -1,6 +1,7 @@
 package com.adison.os.domain.enums;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 @Getter
 public enum Status {
@@ -16,7 +17,8 @@ public enum Status {
         this.descricao = descricao;
     }
 
-    public static Status toEnum(Integer codigo) throws IllegalAccessException{
+    @SneakyThrows
+    public static Status toEnum(Integer codigo) {
         if (codigo == null){
             return null;
         }

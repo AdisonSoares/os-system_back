@@ -1,6 +1,7 @@
 package com.adison.os.domain.enums;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 @Getter
 public enum Prioridade {
@@ -16,7 +17,8 @@ public enum Prioridade {
         this.descricao = descricao;
     }
 
-    public static Prioridade toEnum(Integer codigo) throws IllegalAccessException {
+    @SneakyThrows
+    public static Prioridade toEnum(Integer codigo) {
         if (codigo == null){
             return null;
         }
