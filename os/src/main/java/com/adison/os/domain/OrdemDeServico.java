@@ -2,20 +2,38 @@ package com.adison.os.domain;
 
 import com.adison.os.domain.enums.Prioridade;
 import com.adison.os.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+@Entity
 @Getter @Setter @EqualsAndHashCode(of = {"id"})
 public class OrdemDeServico {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataAbertura;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataFechamento;
+
     private Integer prioridade;
+
     private String observacoes;
+
     private Integer status;
+
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     public OrdemDeServico() {
