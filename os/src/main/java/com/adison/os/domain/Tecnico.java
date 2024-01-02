@@ -1,5 +1,6 @@
 package com.adison.os.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class Tecnico extends Pessoa implements Serializable {
         super();
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tecnico")
     private List<OrdemDeServico> list = new ArrayList<>();
 }
