@@ -2,6 +2,7 @@ package com.adison.os.service;
 
 import com.adison.os.domain.Tecnico;
 import com.adison.os.repositorie.TecnicoRepository;
+import com.adison.os.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class TecnicoService {
 
     public Tecnico findById(Integer id){
         Optional<Tecnico> objectRepository = repository.findById(id);
-        return objectRepository.orElse(null);
+        return objectRepository.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: "+ id + ", Tipo: "+ Tecnico.class.getName()));
     }
 }
