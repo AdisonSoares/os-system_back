@@ -1,6 +1,7 @@
 package com.adison.os.controller;
 
 import com.adison.os.domain.Tecnico;
+import com.adison.os.dto.TecnicoDto;
 import com.adison.os.service.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,9 @@ public class TecnicoController {
     private TecnicoService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Tecnico> findById(@PathVariable Integer id){
+    public ResponseEntity<TecnicoDto> findById(@PathVariable Integer id){
        Tecnico objectController = service.findById(id);
-       return ResponseEntity.ok().body(objectController);
+       TecnicoDto objectDto = new TecnicoDto(objectController);
+       return ResponseEntity.ok().body(objectDto);
     }
 }
