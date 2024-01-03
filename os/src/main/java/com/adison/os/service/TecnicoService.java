@@ -1,6 +1,7 @@
 package com.adison.os.service;
 
 import com.adison.os.domain.Tecnico;
+import com.adison.os.dto.TecnicoDto;
 import com.adison.os.repositorie.TecnicoRepository;
 import com.adison.os.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class TecnicoService {
 
     public List<Tecnico> findAll() {
         return repository.findAll();
+    }
+
+    public Tecnico create(TecnicoDto tecnicoDto){
+        Tecnico objectTecnico = new Tecnico(null, tecnicoDto.getNome(), tecnicoDto.getCpf(), tecnicoDto.getTelefone());
+        return repository.save(objectTecnico);
     }
 }
