@@ -29,13 +29,14 @@ public class DBService {
     }
     public void instanciaDB(){
         Tecnico t1 = new Tecnico(null, "Adison Soares", "069.920.090-36", "(61) 92644-9765");
+        Tecnico t2 = new Tecnico(null, "Adriana Silva", "726.411.300-09", "(61) 92644-9700");
         Cliente c1 = new Cliente(null, "Betina Campos", "747.525.710-05", "(61) 93552-5880");
         OrdemDeServico os1 = new OrdemDeServico(null, Prioridade.ALTA, "Teste create OD", Status.ANDAMENTO, t1, c1);
 
         t1.getList().add(os1);
         c1.getList().add(os1);
 
-        tecnicoRepository.saveAll(List.of(t1));
+        tecnicoRepository.saveAll(List.of(t1, t2));
         clienteRepository.saveAll(List.of(c1));
         ordemDeServicoRepository.saveAll(List.of(os1));
     }
