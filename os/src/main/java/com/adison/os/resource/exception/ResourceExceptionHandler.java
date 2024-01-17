@@ -1,5 +1,6 @@
 package com.adison.os.resource.exception;
 
+import com.adison.os.service.exception.DataIntegratyViolationException;
 import com.adison.os.service.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,5 +14,12 @@ public class ResourceExceptionHandler {
         StandardError error = new StandardError(System.currentTimeMillis(),
                 HttpStatus.NOT_FOUND.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(DataIntegratyViolationException.class)
+    public ResponseEntity<StandardError> objectNotFoundException(DataIntegratyViolationException e){
+        StandardError error = new StandardError(System.currentTimeMillis(),
+                HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

@@ -3,6 +3,7 @@ package com.adison.os.service;
 import com.adison.os.domain.Tecnico;
 import com.adison.os.dto.TecnicoDto;
 import com.adison.os.repositorie.TecnicoRepository;
+import com.adison.os.service.exception.DataIntegratyViolationException;
 import com.adison.os.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,14 @@ public class TecnicoService {
     }
 
     public Tecnico create(TecnicoDto tecnicoDto){
+        if (findByCpf(tecnicoDto) !=null){
+            throw new DataIntegratyViolationException("Cpf já cadastrado na base de dados!");
+        }
         Tecnico objectTecnico = new Tecnico(null, tecnicoDto.getNome(), tecnicoDto.getCpf(), tecnicoDto.getTelefone());
         return repository.save(objectTecnico);
+    }
+
+    private Tecnico findByCpf(TecnicoDto tecnicoDto){
+        return repository.findByCpf(tecnicoDto.getCpf());
     }
 }
