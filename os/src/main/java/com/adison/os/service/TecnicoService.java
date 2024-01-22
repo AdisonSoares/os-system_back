@@ -35,7 +35,7 @@ public class TecnicoService {
     }
     
     public Tecnico update(Integer id, TecnicoDto objectDto) {
-        Tecnico oldObjectTecnico = findById(id);
+        Tecnico oldadd the technician deleteObjectTecnico = findById(id);
         if (findByCpf(objectDto) != null && findByCpf(objectDto).getId() != id){
             throw new DataIntegratyViolationException("Cpf já cadastrado na base de dados!");
         }
@@ -47,8 +47,15 @@ public class TecnicoService {
         return repository.save(oldObjectTecnico);
     }
 
+    public void delete(Integer id) {
+        Tecnico objectTecnico = findById(id);
+        if (!objectTecnico.getList().isEmpty()){
+            throw new DataIntegratyViolationException("Técnico possui ordens de serviço, não pode ser deletado!");
+        }
+        repository.deleteById(id);
+    }
+
     private Tecnico findByCpf(TecnicoDto tecnicoDto){
         return repository.findByCpf(tecnicoDto.getCpf());
     }
-
 }
