@@ -3,6 +3,7 @@ package com.adison.os.controller;
 import com.adison.os.domain.Tecnico;
 import com.adison.os.dto.TecnicoDto;
 import com.adison.os.service.TecnicoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,7 @@ public class TecnicoController {
         return ResponseEntity.ok().body(listTecnicoDto);
     }
     @PostMapping
-    public ResponseEntity<TecnicoDto> create(@RequestBody TecnicoDto objectDto) {
+    public ResponseEntity<TecnicoDto> create(@Valid @RequestBody TecnicoDto objectDto) {
         Tecnico objectTecnico = service.create(objectDto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
