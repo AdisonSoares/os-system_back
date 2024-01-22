@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -35,8 +36,8 @@ public class TecnicoService {
     }
     
     public Tecnico update(Integer id, TecnicoDto objectDto) {
-        Tecnico oldadd the technician deleteObjectTecnico = findById(id);
-        if (findByCpf(objectDto) != null && findByCpf(objectDto).getId() != id){
+        Tecnico oldObjectTecnico = findById(id);
+        if (findByCpf(objectDto) != null && !Objects.equals(findByCpf(objectDto).getId(), id)){
             throw new DataIntegratyViolationException("Cpf já cadastrado na base de dados!");
         }
 
