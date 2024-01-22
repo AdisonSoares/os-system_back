@@ -57,5 +57,10 @@ public class TecnicoController {
 
         return ResponseEntity.created(uri).build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<TecnicoDto> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDto objectDto){
+        TecnicoDto newObjectDto = new TecnicoDto(service.update(id, objectDto));
+        return ResponseEntity.ok().body(newObjectDto);
+    }
 }
 
