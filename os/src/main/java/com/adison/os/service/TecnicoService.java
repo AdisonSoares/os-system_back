@@ -1,7 +1,9 @@
 package com.adison.os.service;
 
+import com.adison.os.domain.Pessoa;
 import com.adison.os.domain.Tecnico;
 import com.adison.os.dto.TecnicoDto;
+import com.adison.os.repositorie.PessoaRepository;
 import com.adison.os.repositorie.TecnicoRepository;
 import com.adison.os.service.exception.DataIntegratyViolationException;
 import com.adison.os.service.exception.ObjectNotFoundException;
@@ -15,16 +17,19 @@ import java.util.Optional;
 @Service
 public class TecnicoService {
     @Autowired
-    private TecnicoRepository repository;
+    private TecnicoRepository tecnicoRepository;
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     public Tecnico findById(Integer id){
-        Optional<Tecnico> objectRepository = repository.findById(id);
+        Optional<Tecnico> objectRepository = tecnicoRepository.findById(id);
         return objectRepository.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: "+ id + ", Tipo: "+ Tecnico.class.getName()));
     }
 
     public List<Tecnico> findAll() {
-        return repository.findAll();
+        return tecnicoRepository.findAll();
     }
 
     public Tecnico create(TecnicoDto tecnicoDto){
@@ -32,7 +37,7 @@ public class TecnicoService {
             throw new DataIntegratyViolationException("Cpf já cadastrado na base de dados!");
         }
         Tecnico objectTecnico = new Tecnico(null, tecnicoDto.getNome(), tecnicoDto.getCpf(), tecnicoDto.getTelefone());
-        return repository.save(objectTecnico);
+        return tecnicoRepository.save(objectTecnico);
     }
     
     public Tecnico update(Integer id, TecnicoDto objectDto) {
@@ -45,7 +50,7 @@ public class TecnicoService {
         oldObjectTecnico.setCpf(objectDto.getCpf());
         oldObjectTecnico.setTelefone(objectDto.getTelefone());
 
-        return repository.save(oldObjectTecnico);
+        return tecnicoRepository.save(oldObjectTecnico);
     }
 
     public void delete(Integer id) {
@@ -53,10 +58,10 @@ public class TecnicoService {
         if (!objectTecnico.getList().isEmpty()){
             throw new DataIntegratyViolationException("Técnico possui ordens de serviço, não pode ser deletado!");
         }
-        repository.deleteById(id);
+        tecnicoRepository.deleteById(id);
     }
 
-    private Tecnico findByCpf(TecnicoDto tecnicoDto){
-        return repository.findByCpf(tecnicoDto.getCpf());
+    private Pessoa findByCpf(TecnicoDto tecnicoDto){
+        return pessoaRepository.findByCpf(tecnicoDto.getCpf());
     }
 }
