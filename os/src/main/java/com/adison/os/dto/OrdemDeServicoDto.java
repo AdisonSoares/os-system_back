@@ -26,7 +26,7 @@ public class OrdemDeServicoDto implements Serializable {
     private Integer status;
 
     private Integer tecnico;
-    
+
     private Integer cliente;
 
     public OrdemDeServicoDto(OrdemDeServico objectOrdemDeServico) {
