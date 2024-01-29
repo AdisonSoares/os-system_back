@@ -11,16 +11,17 @@ import java.io.Serializable;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class ClienteDto implements Serializable {
+    public static final String CAMPO_OBRIGATORIO = "Campo obrigatório!";
     private Integer id;
 
-    @NotEmpty(message = "Campo obrigatório!")
+    @NotEmpty(message = CAMPO_OBRIGATORIO)
     private String nome;
 
     @CPF
-    @NotEmpty(message = "Campo obrigatório!")
+    @NotEmpty(message = CAMPO_OBRIGATORIO)
     private String cpf;
 
-    @NotEmpty(message = "Campo obrigatório!")
+    @NotEmpty(message = CAMPO_OBRIGATORIO)
     private String telefone;
 
     public ClienteDto(Cliente objectCliente) {
