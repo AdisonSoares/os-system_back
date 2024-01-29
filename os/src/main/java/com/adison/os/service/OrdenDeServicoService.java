@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +40,10 @@ public class OrdenDeServicoService {
     public OrdemDeServico create(@Valid OrdemDeServicoDto objectDto) {
         return fromDto(objectDto);
     }
-
+    public OrdemDeServico update(OrdemDeServicoDto objectOrdemDeServicoDto) {
+        findById(objectOrdemDeServicoDto.getId());
+        return fromDto(objectOrdemDeServicoDto);
+    }
     private OrdemDeServico fromDto(OrdemDeServicoDto objectDto) {
         OrdemDeServico newObject = new OrdemDeServico();
         newObject.setId(objectDto.getId());
@@ -52,6 +56,10 @@ public class OrdenDeServicoService {
 
         newObject.setTecnico(tecnico);
         newObject.setCliente(cliente);
+
+        if (newObject.getStatus().getCodigo().equals(2)){
+            newObject.setDataFechamento(LocalDateTime.now());
+        }
 
         return ordemDeServicoRepository.save(newObject);
     }
