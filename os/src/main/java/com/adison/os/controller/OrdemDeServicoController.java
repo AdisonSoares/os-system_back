@@ -35,4 +35,9 @@ public class OrdemDeServicoController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objectDto.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+    @PutMapping
+    public ResponseEntity<OrdemDeServicoDto> update(@Valid @RequestBody OrdemDeServicoDto objectOrdemDeServicoDto){
+        objectOrdemDeServicoDto = new OrdemDeServicoDto(ordemDeServicoService.update(objectOrdemDeServicoDto));
+        return ResponseEntity.ok().body(objectOrdemDeServicoDto);
+    }
 }
