@@ -2,6 +2,7 @@ package com.adison.os.dto;
 
 import com.adison.os.domain.OrdemDeServico;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,16 +12,19 @@ import java.time.LocalDateTime;
 @Data @NoArgsConstructor
 public class OrdemDeServicoDto implements Serializable {
 
+    public static final String CAMPO_OBRIGATORIO = "Campo obrigatório!";
+    public static final String DATA = "dd/MM/yyyy HH:mm";
     private Integer id;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = DATA)
     private LocalDateTime dataAbertura;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = DATA)
     private LocalDateTime dataFechamento;
 
     private Integer prioridade;
 
+    @NotEmpty(message = CAMPO_OBRIGATORIO)
     private String observacoes;
 
     private Integer status;
